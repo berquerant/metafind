@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ ! -x bin/task ] ; then
+    mkdir -p bin
+    go build -o bin/task github.com/go-task/task/v3/cmd/task
+fi
+bin/task "$@"

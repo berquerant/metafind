@@ -1,0 +1,30 @@
+version: '3'
+
+tasks:
+  default:
+    deps:
+      - lint
+      - test
+      - build
+  test:
+    cmds:
+      - go run gotest.tools/gotestsum --format pkgname --format-icons hivis -- -cover -race ./...
+  build:
+    cmds:
+      - go build -trimpath -v -o dist/mf ./cmd/
+  lint:
+    deps:
+      - vet
+      - vuln
+  vet:
+    cmds:
+      - go vet ./...
+  vuln:
+    cmds:
+      - go run golang.org/x/vuln/cmd/govulncheck ./...
+  generate:
+    cmds:
+      - go generate ./...
+  clean-generated:
+    cmds:
+      - find . -name "*_generated.go" -type f -delete
