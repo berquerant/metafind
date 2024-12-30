@@ -313,6 +313,7 @@ func (c *Config) Output(w io.Writer, v *meta.Data) {
 			return
 		}
 		fmt.Fprintf(w, "%s\n", b)
+		return
 	}
 
 	path := walk.GetPathFromMetadata(v)
