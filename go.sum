@@ -21,8 +21,8 @@ github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPd
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
 github.com/berquerant/dataclass v0.4.0 h1:POP74hOdKsI7TgaZQwHK5EiYiIRbpWsiExC42Cas1FU=
 github.com/berquerant/dataclass v0.4.0/go.mod h1:f0gBqxMmuOJkimyTZUQuijoIq+XXpgAhqNZE9vQTCP0=
-github.com/berquerant/execx v0.6.3 h1:yNUI60wm0R/Hux7QCj1OAJCPFpiYPuSjUT6eJiGG2hk=
-github.com/berquerant/execx v0.6.3/go.mod h1:RRrIYZBafhJheLAx9fvrfwyxPn6+PwAfdUlJj/SlH/k=
+github.com/berquerant/execx v0.7.0 h1:V4YnC75PcgnJc3ZSmyzSGfz9hjDIdafjnIpv7HzELao=
+github.com/berquerant/execx v0.7.0/go.mod h1:bemUZeJh8eEAbztIAyShXv/4w4rX43M/7QSXidtBohA=
 github.com/berquerant/goconfig v0.3.0 h1:ZE06HPp8aoXcdaNBWr3YsnMokfl5BBV4J0OHha5E8E0=
 github.com/berquerant/goconfig v0.3.0/go.mod h1:4fY4lQ98iRSU8Rn4huI7334mlVS46rAHjrAVfonzGzs=
 github.com/berquerant/structconfig v0.2.1 h1:siZjG+me5TZU9xzobbDTxIv9MMLiOQIbKwKgsFURZYU=
