@@ -51,7 +51,7 @@ func (w *ReaderWalker) Walk(_ string) iter.Seq[Entry] {
 				case <-ctx.Done():
 					return
 				default:
-					path := scanner.Text()
+					path := os.ExpandEnv(scanner.Text())
 					info, err := os.Stat(path)
 					slog.Debug("ReaderWalker", slog.String("path", path), logx.Err(err))
 					if os.IsNotExist(err) {

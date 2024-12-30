@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"iter"
 	"log/slog"
+	"os"
 	"path/filepath"
 
 	"github.com/berquerant/metafind/logx"
@@ -34,6 +35,7 @@ var (
 func (w *FileWalker) Walk(root string) iter.Seq[Entry] {
 	WalkCount.Incr()
 	w.err = nil
+	root = os.ExpandEnv(root)
 
 	return func(yield func(Entry) bool) {
 		resultC := make(chan Entry, walkerBufferSize)
