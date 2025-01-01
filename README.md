@@ -66,8 +66,8 @@ Flags:
                          expr: |
                            name matches '\.m4a$'
       --debug            Enable debug logs
-  -x, --exclude string   Expression of expr lang to reject entries.
-  -e, --expr string      Expression of expr lang to select entries.
+  -x, --exclude string   Expression of expr lang to reject entries before probe
+  -e, --expr string      Expression of expr lang to select entries
   -i, --index string     Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'
   -o, --out string       Output file. - means stdout
       --pname string     Probe script name. Change metadata name; separated by ';'

@@ -145,7 +145,7 @@ type Config struct {
 	ProbeName []string `json:"pname" yaml:"pname" name:"pname" usage:"Probe script name. Change metadata name; separated by ';'"`
 	Index     []string `json:"index" yaml:"index" name:"index" short:"i" usage:"Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'"`
 	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang to select entries"`
-	Exclude   string   `json:"exclude" yaml:"exclude" name:"exclude" short:"x" usage:"Expression of expr lang to reject entries"`
+	Exclude   string   `json:"exclude" yaml:"exclude" name:"exclude" short:"x" usage:"Expression of expr lang to reject entries before probe"`
 }
 
 func (Config) unmarshalCallback(f structconfig.StructField, v string, fv func() reflect.Value) error {
