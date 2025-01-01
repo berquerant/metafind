@@ -86,6 +86,18 @@ EOS`)
 			},
 		},
 		{
+			title: "equal pairs probe",
+			args: []string{
+				"-r", d,
+				"-e", `c.p matches 'green$'`,
+				"-p", `echo "p=@RAWARG"`,
+				"--pname", "c",
+			},
+			want: []string{
+				f1,
+			},
+		},
+		{
 			title: "named probe",
 			args: []string{
 				"-r", d,
