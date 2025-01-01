@@ -55,11 +55,11 @@ func TestScript(t *testing.T) {
 		{
 			title: "equal pairs except broken",
 			raw: `k=v
-k2=v2=@ARG
+k2=v2=@RAWARG
 broken`,
 			want: meta.NewData(map[string]any{
 				"k":  "v",
-				"k2": `v2="DUMMY"`,
+				"k2": `v2=DUMMY`,
 			}),
 		},
 		{

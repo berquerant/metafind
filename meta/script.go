@@ -45,7 +45,7 @@ func NewScript(content, shell string, arg ...string) *Script {
 	)
 
 	ScriptCount.Incr()
-	content = strings.ReplaceAll(content, ArgLiteral, `"$1"`)
+	content = ReplaceScriptLiterals(content)
 	s := execx.NewScript(content, shell, arg...)
 	s.KeepScriptFile = true
 	s.Env.Merge(execx.EnvFromEnviron())
