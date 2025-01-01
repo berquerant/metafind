@@ -24,7 +24,18 @@ type Script struct {
 	s *execx.Script
 }
 
-const ArgLiteral = "@ARG"
+const (
+	ArgLiteral    = "@ARG"
+	RawArgLiteral = "@RAWARG"
+)
+
+func ReplaceScriptLiterals(s string) string {
+	r := strings.NewReplacer(
+		RawArgLiteral, `$1`,
+		ArgLiteral, `"$1"`,
+	)
+	return r.Replace(s)
+}
 
 func NewScript(content, shell string, arg ...string) *Script {
 	slog.Debug("NewScript",

@@ -9,6 +9,37 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestReplaceScriptLiterals(t *testing.T) {
+	for _, tc := range []struct {
+		input string
+		want  string
+	}{
+		{
+			input: `@ARG @ARG @RAWARG @RAWARG`,
+			want:  `"$1" "$1" $1 $1`,
+		},
+		{
+			input: `@RAWARG`,
+			want:  `$1`,
+		},
+		{
+			input: `@ARG`,
+			want:  `"$1"`,
+		},
+		{
+			input: `no literals`,
+			want:  `no literals`,
+		},
+		{
+			input: "",
+			want:  "",
+		},
+	} {
+		got := meta.ReplaceScriptLiterals(tc.input)
+		assert.Equal(t, tc.want, got)
+	}
+}
+
 func TestScript(t *testing.T) {
 	for _, tc := range []struct {
 		title string
