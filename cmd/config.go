@@ -141,7 +141,7 @@ type Config struct {
 	Out       string   `json:"out" yaml:"out" name:"out" short:"o" usage:"Output file. - means stdout"`
 	Root      []string `json:"root" yaml:"root" name:"root" short:"r" default:"." usage:"Root directories. - means stdin; separated by ';'"`
 	Shell     []string `json:"shell" yaml:"shell" name:"sh" default:"sh" usage:"Shell command for probe; separated by ';'"`
-	Probe     []string `json:"probe" yaml:"probe" name:"probe" short:"p" usage:"Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by ';'"`
+	Probe     []string `json:"probe" yaml:"probe" name:"probe" short:"p" usage:"Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by '#'"`
 	ProbeName []string `json:"pname" yaml:"pname" name:"pname" usage:"Probe script name. Change metadata name; separated by ';'"`
 	Index     []string `json:"index" yaml:"index" name:"index" short:"i" usage:"Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'"`
 	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang to select entries"`
@@ -151,7 +151,14 @@ type Config struct {
 func (Config) unmarshalCallback(f structconfig.StructField, v string, fv func() reflect.Value) error {
 	n, _ := f.Tag().Name()
 	switch n {
-	case "root", "sh", "probe", "index", "pname":
+	case "probe":
+		if v == "" {
+			return nil
+		}
+		xs := strings.Split(v, "#")
+		fv().Set(reflect.ValueOf(xs))
+		return nil
+	case "root", "sh", "index", "pname":
 		if v == "" {
 			return nil
 		}
