@@ -27,8 +27,18 @@ Available inputs:
 - size: The file size (in bytes)
 
 You can add inputs by specifying 'probe'.
-The 'probe' must be a script that outputs a JSON string to standard output.
-You can use the macro '@ARG' within the script, which represents the path to the target file.
+The 'probe' is invoked with the path to the target file (1st argument).
+You can use the macros within the script.
+
+- @ARG is replaced with "$1"
+- @RAWARG is replaced with $1
+
+And the 'probe' must output a JSON string or in the form "key=value" to standard output like:
+  {"key": "value"}
+
+  key1=value1
+  key2=value2
+
 The keys for the inputs available in the expression will be 'pN' for the N-th 'probe'.
 
 Examples:
@@ -43,6 +53,8 @@ mf -r SOME_DIR -x 'path matches "green"'
 mf -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata
 mf -r SOME_DIR -e 'key.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"' --pname 'key'
+# Add equal pair metadata
+mf -r SOME_DIR -e 'key.path matches "green"' -p 'echo "p=@RAWARG"' --pname 'key'
 # Read paths from stdin
 echo SOME_DIR | mf -r - -v
 # Read metadata
@@ -71,7 +83,7 @@ Flags:
   -i, --index string     Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'
   -o, --out string       Output file. - means stdout
       --pname string     Probe script name. Change metadata name; separated by ';'
-  -p, --probe string     Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by ';'
+  -p, --probe string     Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by '#'
   -q, --quiet            Quiet logs except ERROR
   -r, --root string      Root directories. - means stdin; separated by ';' (default ".")
       --sh string        Shell command for probe; separated by ';' (default "sh")

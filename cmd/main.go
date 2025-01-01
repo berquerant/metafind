@@ -79,8 +79,18 @@ Available inputs:
 - size: The file size (in bytes)
 
 You can add inputs by specifying 'probe'.
-The 'probe' must be a script that outputs a JSON string to standard output.
-You can use the macro '@ARG' within the script, which represents the path to the target file.
+The 'probe' is invoked with the path to the target file (1st argument).
+You can use the macros within the script.
+
+- @ARG is replaced with "$1"
+- @RAWARG is replaced with $1
+
+And the 'probe' must output a JSON string or in the form "key=value" to standard output like:
+  {"key": "value"}
+
+  key1=value1
+  key2=value2
+
 The keys for the inputs available in the expression will be 'pN' for the N-th 'probe'.
 
 Examples:
@@ -95,6 +105,8 @@ Examples:
 %[1]s -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata
 %[1]s -r SOME_DIR -e 'key.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"' --pname 'key'
+# Add equal pair metadata
+%[1]s -r SOME_DIR -e 'key.path matches "green"' -p 'echo "p=@RAWARG"' --pname 'key'
 # Read paths from stdin
 echo SOME_DIR | %[1]s -r - -v
 # Read metadata
