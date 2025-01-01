@@ -50,10 +50,6 @@ var (
 	ProbeFailureCount = metric.NewCounter("MetaProbeFailure")
 )
 
-const (
-	ProberEnvArg = "ARG"
-)
-
 var (
 	ErrParse = errors.New("Parse")
 )
