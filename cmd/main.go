@@ -89,6 +89,8 @@ Examples:
 %[1]s -r SOME_DIR -v
 # Search path by regexp
 %[1]s -r SOME_DIR -e 'path matches "green"'
+# Exclude by expr
+%[1]s -r SOME_DIR -x 'path matches "green"'
 # Add metadata
 %[1]s -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata

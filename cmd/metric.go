@@ -15,6 +15,8 @@ func NewMetrics(duration time.Duration) any {
 		walk.WalkCallCount,
 		walk.WalkDirCount,
 		walk.WalkEntryCount,
+		walk.WalkExcludeCount,
+		walk.WalkExcludeErrCount,
 		expr.RunCount,
 		expr.ErrCount,
 		expr.TrueCount,

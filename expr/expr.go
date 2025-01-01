@@ -23,6 +23,14 @@ type Program struct {
 	program *vm.Program
 }
 
+func MustNew(code string) *Program {
+	p, err := New(code)
+	if err != nil {
+		panic(err)
+	}
+	return p
+}
+
 func New(code string) (*Program, error) {
 	p, err := exprl.Compile(code)
 	slog.Debug("NewExpr", slog.String("code", code), logx.Err(err))

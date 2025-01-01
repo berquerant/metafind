@@ -2,6 +2,7 @@ package walk_test
 
 import (
 	"bytes"
+	"fmt"
 	"log/slog"
 	"os"
 	"path/filepath"
@@ -9,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/berquerant/metafind/expr"
 	"github.com/berquerant/metafind/logx"
 	"github.com/berquerant/metafind/walk"
 	"github.com/stretchr/testify/assert"
@@ -105,7 +107,7 @@ func TestWalker(t *testing.T) {
 		} {
 			t.Run(tc.name, func(t *testing.T) {
 				r := bytes.NewBufferString(strings.Join(tc.input, "\n"))
-				w := walk.NewReader(r, walk.NewFile())
+				w := walk.NewReader(r, walk.NewFile(nil))
 				result := slices.Collect(w.Walk(""))
 				if !assert.Nil(t, w.Err()) {
 					t.Errorf("%#v", w.Err())
@@ -125,9 +127,10 @@ func TestWalker(t *testing.T) {
 
 	t.Run("FileWalker", func(t *testing.T) {
 		for _, tc := range []struct {
-			name string
-			root string
-			want []string
+			name    string
+			root    string
+			exclude expr.Expr
+			want    []string
 		}{
 			{
 				name: "d31",
@@ -161,13 +164,30 @@ func TestWalker(t *testing.T) {
 				},
 			},
 			{
+				name:    "d exclude d3",
+				root:    d,
+				exclude: expr.MustNew(fmt.Sprintf(`path == "%s"`, d3)),
+				want: []string{
+					f1,
+				},
+			},
+			{
+				name:    "d exclude f3",
+				root:    d,
+				exclude: expr.MustNew(fmt.Sprintf(`path == "%s"`, f3)),
+				want: []string{
+					f1,
+					f2,
+				},
+			},
+			{
 				name: "d1",
 				root: d1,
 				want: []string{},
 			},
 		} {
 			t.Run(tc.name, func(t *testing.T) {
-				w := walk.NewFile()
+				w := walk.NewFile(tc.exclude)
 				r := slices.Collect(w.Walk(tc.root))
 				if !assert.Nil(t, w.Err()) {
 					t.Errorf("%#v", w.Err())

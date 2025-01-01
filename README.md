@@ -37,6 +37,8 @@ Examples:
 mf -r SOME_DIR -v
 # Search path by regexp
 mf -r SOME_DIR -e 'path matches "green"'
+# Exclude by expr
+mf -r SOME_DIR -x 'path matches "green"''
 # Add metadata
 mf -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata
@@ -50,29 +52,29 @@ ROOT=SOME_DIR EXPR='size==0' mf
 
 Flags:
 
-  -c, --config string   Config file.
-                        example:
-
-                        # root directories (default: [.])
-                        root:
-                          - ROOT1
-                        # shell command (default: [sh])
-                        sh:
-                          - bash
-                        probe:
-                          - ffprobe -v error -hide_banner -show_entries format -of json=c=1 @ARG
-                        expr: |
-                          name matches '\.m4a$'
-      --debug           Enable debug logs
-  -e, --expr string     Expression of expr lang
-  -i, --index string    Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'
-  -o, --out string      Output file. - means stdout
-      --pname string    Probe script name. Change metadata name; separated by ';'
-  -p, --probe string    Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by ';'
-  -q, --quiet           Quiet logs except ERROR
-  -r, --root string     Root directories. - means stdin; separated by ';' (default ".")
-      --sh string       Shell command for probe; separated by ';' (default "sh")
-  -v, --verbose         Verbose output. Output metadata to stdout and metrics to stderr
-  -w, --worker int      Worker num (default 8)
-
+  -c, --config string    Config file.
+                         example:
+                         
+                         # root directories (default: [.])
+                         root:
+                           - ROOT1
+                         # shell command (default: [sh])
+                         sh:
+                           - bash
+                         probe:
+                           - ffprobe -v error -hide_banner -show_entries format -of json=c=1 @ARG
+                         expr: |
+                           name matches '\.m4a$'
+      --debug            Enable debug logs
+  -x, --exclude string   Expression of expr lang to reject entries.
+  -e, --expr string      Expression of expr lang to select entries.
+  -i, --index string     Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'
+  -o, --out string       Output file. - means stdout
+      --pname string     Probe script name. Change metadata name; separated by ';'
+  -p, --probe string     Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by ';'
+  -q, --quiet            Quiet logs except ERROR
+  -r, --root string      Root directories. - means stdin; separated by ';' (default ".")
+      --sh string        Shell command for probe; separated by ';' (default "sh")
+  -v, --verbose          Verbose output. Output metadata to stdout and metrics to stderr
+  -w, --worker int       Worker num (default 8)
 ```

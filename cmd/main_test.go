@@ -73,6 +73,19 @@ EOS`)
 		want  []string
 	}{
 		{
+			title: "exclude",
+			args: []string{
+				"-r", d,
+				"-x", `name == 'script'`,
+			},
+			want: []string{
+				f1,
+				f2,
+				f3,
+				f4,
+			},
+		},
+		{
 			title: "named probe",
 			args: []string{
 				"-r", d,

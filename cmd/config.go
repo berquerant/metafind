@@ -144,7 +144,8 @@ type Config struct {
 	Probe     []string `json:"probe" yaml:"probe" name:"probe" short:"p" usage:"Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by ';'"`
 	ProbeName []string `json:"pname" yaml:"pname" name:"pname" usage:"Probe script name. Change metadata name; separated by ';'"`
 	Index     []string `json:"index" yaml:"index" name:"index" short:"i" usage:"Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'"`
-	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang"`
+	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang to select entries"`
+	Exclude   string   `json:"exclude" yaml:"exclude" name:"exclude" short:"x" usage:"Expression of expr lang to reject entries"`
 }
 
 func (Config) unmarshalCallback(f structconfig.StructField, v string, fv func() reflect.Value) error {
@@ -229,6 +230,17 @@ func (c *Config) NewExpr() (expr.Expr, error) {
 	return expr.New(code)
 }
 
+func (c *Config) NewExclude() (expr.Expr, error) {
+	if c.Exclude == "" {
+		return nil, errNotSpecified
+	}
+	code, err := iox.ReadFileOrLiteral(c.Exclude)
+	if err != nil {
+		return nil, err
+	}
+	return expr.New(code)
+}
+
 func (c *Config) newProbers() ([]meta.Prober, error) {
 	xs := make([]meta.Prober, len(c.Probe))
 	for i, p := range c.Probe {
@@ -244,15 +256,20 @@ func (c *Config) newProbers() ([]meta.Prober, error) {
 }
 
 func (c *Config) NewRootWalker() (*iox.Walker, error) {
+	exclude, err := c.NewExclude()
+	if err != nil && !errors.Is(err, errNotSpecified) {
+		return nil, err
+	}
+
 	args := c.Root
 	switch {
 	case len(args) == 0:
 		return nil, fmt.Errorf("%w: no roots", errArgument)
 	case !slices.Contains(args, iox.StdinMark):
-		w := walk.NewFile()
+		w := walk.NewFile(exclude)
 		return iox.NewWalker(w, args...), nil
 	case len(args) == 1:
-		w := walk.NewReader(os.Stdin, walk.NewFile())
+		w := walk.NewReader(os.Stdin, walk.NewFile(exclude))
 		return iox.NewWalker(w, args...), nil
 	default:
 		return nil, fmt.Errorf("%w: no other files can be specifined using %s (stdin)",

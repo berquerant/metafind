@@ -8,28 +8,53 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/berquerant/metafind/expr"
 	"github.com/berquerant/metafind/logx"
 	"github.com/berquerant/metafind/metric"
 )
 
 var _ Walker = &FileWalker{}
 
-func NewFile() *FileWalker {
-	return &FileWalker{}
+func NewFile(exclude expr.Expr) *FileWalker {
+	return &FileWalker{
+		exclude: exclude,
+	}
 }
 
 // FileWalker walks only files under the root.
 type FileWalker struct {
-	err error
+	err     error
+	exclude expr.Expr
 }
 
 func (w FileWalker) Err() error { return w.err }
 
+func (w *FileWalker) isRejected(entry Entry) bool {
+	if w.exclude == nil {
+		return false
+	}
+
+	data := NewMetaData(entry)
+	data.Set("is_dir", entry.Info().IsDir())
+	rejected, err := w.exclude.Run(data.Unwrap())
+	if err != nil {
+		WalkExcludeErrCount.Incr()
+		slog.Warn("FileWalker: exclude", slog.String("path", entry.Path()), logx.Err(err))
+		return true
+	}
+	if rejected {
+		WalkExcludeCount.Incr()
+	}
+	return rejected
+}
+
 var (
-	WalkCount      = metric.NewCounter("Walk")
-	WalkCallCount  = metric.NewCounter("WalkCall")
-	WalkDirCount   = metric.NewCounter("WalkDir")
-	WalkEntryCount = metric.NewCounter("WalkEntry")
+	WalkCount           = metric.NewCounter("Walk")
+	WalkCallCount       = metric.NewCounter("WalkCall")
+	WalkDirCount        = metric.NewCounter("WalkDir")
+	WalkEntryCount      = metric.NewCounter("WalkEntry")
+	WalkExcludeCount    = metric.NewCounter("WalkExclude")
+	WalkExcludeErrCount = metric.NewCounter("WalkExcludeErr")
 )
 
 func (w *FileWalker) Walk(root string) iter.Seq[Entry] {
@@ -56,6 +81,15 @@ func (w *FileWalker) Walk(root string) iter.Seq[Entry] {
 					if err != nil {
 						return err
 					}
+
+					entry := NewEntry(path, info)
+					if w.isRejected(entry) {
+						if info.IsDir() {
+							return filepath.SkipDir
+						}
+						return nil
+					}
+
 					if info.IsDir() {
 						WalkDirCount.Incr()
 						// skip dir
@@ -63,7 +97,7 @@ func (w *FileWalker) Walk(root string) iter.Seq[Entry] {
 					}
 
 					WalkEntryCount.Incr()
-					resultC <- NewEntry(path, info)
+					resultC <- entry
 					return nil
 				}
 			})
