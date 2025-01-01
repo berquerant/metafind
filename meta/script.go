@@ -64,7 +64,6 @@ func (s *Script) Probe(ctx context.Context, path string) (*Data, error) {
 
 	if err := s.s.Runner(func(cmd *execx.Cmd) error {
 		cmd.Args = append(cmd.Args, path)
-		cmd.Env.Set(ProberEnvArg, path)
 		r, err := cmd.Run(ctx)
 		if err != nil {
 			return fmt.Errorf("%w: cmd.run: args=%s", err, logx.Jsonify(cmd.Args))
