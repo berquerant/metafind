@@ -3,6 +3,7 @@ package meta
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -53,6 +54,10 @@ const (
 	ProberEnvArg = "ARG"
 )
 
+var (
+	ErrParse = errors.New("Parse")
+)
+
 func (s *Script) Probe(ctx context.Context, path string) (*Data, error) {
 	ProbeCount.Incr()
 	var data *Data
@@ -70,12 +75,10 @@ func (s *Script) Probe(ctx context.Context, path string) (*Data, error) {
 			return fmt.Errorf("%w: read stdout", err)
 		}
 
-		d := map[string]any{}
-		if err := json.Unmarshal(b, &d); err != nil {
-			return fmt.Errorf("%w: unmarshal: %s", err, b)
+		data = s.parseData(b)
+		if data.IsEmpty() {
+			return fmt.Errorf("%w: %s", ErrParse, b)
 		}
-
-		data = NewData(d)
 		return nil
 	}); err != nil {
 		ProbeFailureCount.Incr()
@@ -84,6 +87,14 @@ func (s *Script) Probe(ctx context.Context, path string) (*Data, error) {
 
 	ProbeSuccessCount.Incr()
 	return data, nil
+}
+
+func (Script) parseData(b []byte) *Data {
+	d := map[string]any{}
+	if err := json.Unmarshal(b, &d); err == nil {
+		return NewData(d)
+	}
+	return NewDataFromEqualPairs(strings.Split(string(b), "\n"))
 }
 
 func (s *Script) Close() error {

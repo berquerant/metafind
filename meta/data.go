@@ -14,6 +14,7 @@ func NewData(d map[string]any) *Data {
 	}
 }
 
+func (d Data) IsEmpty() bool                { return len(d.d) == 0 }
 func (d Data) Unwrap() map[string]any       { return d.d }
 func (d Data) MarshalJSON() ([]byte, error) { return json.Marshal(d.d) }
 func (d Data) MarshalYAML() (any, error)    { return d.d, nil }
