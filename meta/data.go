@@ -1,6 +1,8 @@
 package meta
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 type Data struct {
 	d map[string]any
