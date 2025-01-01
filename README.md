@@ -38,7 +38,7 @@ mf -r SOME_DIR -v
 # Search path by regexp
 mf -r SOME_DIR -e 'path matches "green"'
 # Exclude by expr
-mf -r SOME_DIR -x 'path matches "green"''
+mf -r SOME_DIR -x 'path matches "green"'
 # Add metadata
 mf -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata
