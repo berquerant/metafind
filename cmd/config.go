@@ -110,10 +110,9 @@ expr: |
 		}
 	}
 
-	if config.Worker < 1 {
-		config.Worker = 1
+	if err := config.Init(); err != nil {
+		return nil, err
 	}
-
 	return &config, nil
 }
 
@@ -146,10 +145,33 @@ type Config struct {
 	Index     []string `json:"index" yaml:"index" name:"index" short:"i" usage:"Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'"`
 	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang to select entries"`
 	Exclude   string   `json:"exclude" yaml:"exclude" name:"exclude" short:"x" usage:"Expression of expr lang to reject entries before probe"`
+	Format    string   `json:"format" yaml:"format" name:"format" short:"f" usage:"Expression of expr lang to format output"`
+
+	formatExpr expr.RawExpr `json:"-" yaml:"-" name:"-"`
+}
+
+func (c *Config) Init() error {
+	if c.Worker < 1 {
+		c.Worker = 1
+	}
+
+	formatExpr, err := c.newFormat()
+	switch {
+	case err == nil:
+		c.formatExpr = formatExpr
+	case !errors.Is(err, errNotSpecified):
+		return err
+	}
+
+	return nil
 }
 
 func (Config) unmarshalCallback(f structconfig.StructField, v string, fv func() reflect.Value) error {
-	n, _ := f.Tag().Name()
+	n, ok := f.Tag().Name()
+	if !ok {
+		return nil
+	}
+
 	switch n {
 	case "probe":
 		if v == "" {
@@ -226,27 +248,34 @@ func (c Config) SetupLogger() {
 	logx.Setup(os.Stderr, c.logLevel())
 }
 
-func (c *Config) NewExpr() (expr.Expr, error) {
-	if c.Expr == "" {
+func newRawExpr(s string) (expr.RawExpr, error) {
+	if s == "" {
 		return nil, errNotSpecified
 	}
-	code, err := iox.ReadFileOrLiteral(c.Expr)
+	code, err := iox.ReadFileOrLiteral(s)
 	if err != nil {
 		return nil, err
 	}
-	return expr.New(code)
+	return expr.NewRaw(code)
+}
+
+func (c *Config) NewExpr() (expr.Expr, error) {
+	x, err := newRawExpr(c.Expr)
+	if err != nil {
+		return nil, err
+	}
+	return expr.New(x), nil
 }
 
 func (c *Config) NewExclude() (expr.Expr, error) {
-	if c.Exclude == "" {
-		return nil, errNotSpecified
-	}
-	code, err := iox.ReadFileOrLiteral(c.Exclude)
+	x, err := newRawExpr(c.Exclude)
 	if err != nil {
 		return nil, err
 	}
-	return expr.New(code)
+	return expr.New(x), nil
 }
+
+func (c *Config) newFormat() (expr.RawExpr, error) { return newRawExpr(c.Format) }
 
 func (c *Config) newProbers() ([]meta.Prober, error) {
 	xs := make([]meta.Prober, len(c.Probe))
@@ -332,6 +361,21 @@ func (c *Config) Output(w io.Writer, v *meta.Data) {
 	if c.Verbose {
 		// dump all metadata as json
 		b, err := json.Marshal(v)
+		if err != nil {
+			slog.Warn("Marshal", logx.Err(err))
+			return
+		}
+		fmt.Fprintf(w, "%s\n", b)
+		return
+	}
+
+	if e := c.formatExpr; e != nil {
+		x, err := e.Run(v.Unwrap())
+		if err != nil {
+			slog.Warn("Format", logx.Err(err))
+			return
+		}
+		b, err := json.Marshal(x)
 		if err != nil {
 			slog.Warn("Marshal", logx.Err(err))
 			return

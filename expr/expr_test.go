@@ -55,7 +55,7 @@ func TestProgram(t *testing.T) {
 		},
 	} {
 		t.Run(tc.title, func(t *testing.T) {
-			p, err := expr.New(tc.code)
+			r, err := expr.NewRaw(tc.code)
 			if tc.compileErr {
 				assert.NotNil(t, err)
 				return
@@ -63,6 +63,7 @@ func TestProgram(t *testing.T) {
 			if !assert.Nil(t, err) {
 				return
 			}
+			p := expr.New(r)
 			got, err := p.Run(tc.env)
 			if tc.runtimeErr {
 				assert.NotNil(t, err)

@@ -113,6 +113,8 @@ echo SOME_DIR | %[1]s -r - -v
 %[1]s -i METADATA_FILE -e 'path matches "green"'
 # Envvars
 ROOT=SOME_DIR EXPR='size==0' %[1]s
+# Format by expr
+%[1]s -r SOME_DIR -f '{n:name,s:size}'
 
 Flags:
 

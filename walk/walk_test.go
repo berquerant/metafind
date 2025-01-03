@@ -166,7 +166,7 @@ func TestWalker(t *testing.T) {
 			{
 				name:    "d exclude d3",
 				root:    d,
-				exclude: expr.MustNew(fmt.Sprintf(`path == "%s"`, d3)),
+				exclude: expr.New(expr.MustNewRaw(fmt.Sprintf(`path == "%s"`, d3))),
 				want: []string{
 					f1,
 				},
@@ -174,7 +174,7 @@ func TestWalker(t *testing.T) {
 			{
 				name:    "d exclude f3",
 				root:    d,
-				exclude: expr.MustNew(fmt.Sprintf(`path == "%s"`, f3)),
+				exclude: expr.New(expr.MustNewRaw(fmt.Sprintf(`path == "%s"`, f3))),
 				want: []string{
 					f1,
 					f2,

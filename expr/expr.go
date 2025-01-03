@@ -1,14 +1,9 @@
 package expr
 
 import (
-	"fmt"
-	"log/slog"
 	"reflect"
 
-	"github.com/berquerant/metafind/logx"
 	"github.com/berquerant/metafind/metric"
-	exprl "github.com/expr-lang/expr"
-	"github.com/expr-lang/expr/vm"
 )
 
 type Expr interface {
@@ -20,26 +15,13 @@ var (
 )
 
 type Program struct {
-	program *vm.Program
+	raw RawExpr
 }
 
-func MustNew(code string) *Program {
-	p, err := New(code)
-	if err != nil {
-		panic(err)
-	}
-	return p
-}
-
-func New(code string) (*Program, error) {
-	p, err := exprl.Compile(code)
-	slog.Debug("NewExpr", slog.String("code", code), logx.Err(err))
-	if err != nil {
-		return nil, err
-	}
+func New(raw RawExpr) *Program {
 	return &Program{
-		program: p,
-	}, nil
+		raw: raw,
+	}
 }
 
 var (
@@ -51,13 +33,7 @@ var (
 
 func (p *Program) Run(env map[string]any) (bool, error) {
 	RunCount.Incr()
-
-	v, err := exprl.Run(p.program, env)
-	slog.Debug("ExprRun",
-		logx.JSON("env", env),
-		slog.String("return", fmt.Sprint(v)),
-		logx.Err(err),
-	)
+	v, err := p.raw.Run(env)
 	if err != nil {
 		ErrCount.Incr()
 		return false, err

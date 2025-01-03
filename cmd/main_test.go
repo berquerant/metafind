@@ -168,6 +168,20 @@ EOS`)
 				s1,
 			},
 		},
+		{
+			title: "format",
+			args: []string{
+				"-r", d,
+				"-f", `name`,
+			},
+			want: []string{
+				`"green"`,
+				`"red"`,
+				`"green2"`,
+				`"empty"`,
+				`"script"`,
+			},
+		},
 	} {
 		t.Run(tc.title, func(t *testing.T) {
 			got, err := run(tc.stdin, nil, e.cmd, tc.args...)

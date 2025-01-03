@@ -61,6 +61,8 @@ echo SOME_DIR | mf -r - -v
 mf -i METADATA_FILE -e 'path matches "green"'
 # Envvars
 ROOT=SOME_DIR EXPR='size==0' mf
+# Format by expr
+mf -r SOME_DIR -f '{n:name,s:size}'
 
 Flags:
 
@@ -80,6 +82,7 @@ Flags:
       --debug            Enable debug logs
   -x, --exclude string   Expression of expr lang to reject entries before probe
   -e, --expr string      Expression of expr lang to select entries
+  -f, --format string    Expression of expr lang to format output
   -i, --index string     Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'
   -o, --out string       Output file. - means stdout
       --pname string     Probe script name. Change metadata name; separated by ';'

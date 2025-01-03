@@ -5,7 +5,7 @@ go 1.23.3
 require (
 	github.com/berquerant/dataclass v0.4.0
 	github.com/berquerant/execx v0.7.0
-	github.com/berquerant/structconfig v0.2.1
+	github.com/berquerant/structconfig v0.2.2
 	github.com/expr-lang/expr v1.16.9
 	github.com/go-task/task/v3 v3.40.1
 	github.com/spf13/pflag v1.0.5
@@ -36,7 +36,7 @@ require (
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.6.1 // indirect
-	github.com/go-git/go-git/v5 v5.13.0 // indirect
+	github.com/go-git/go-git/v5 v5.13.1 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/go-task/template v0.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
