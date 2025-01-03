@@ -50,11 +50,11 @@ mf -r SOME_DIR -e 'path matches "green"'
 # Exclude by expr
 mf -r SOME_DIR -x 'path matches "green"'
 # Add metadata
-mf -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
+mf -r SOME_DIR -e 'p0.p matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata
-mf -r SOME_DIR -e 'key.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"' --pname 'key'
+mf -r SOME_DIR -e 'key.p matches "green"' -p 'echo "{\"p\":\"@ARG\"}"' --pname 'key'
 # Add equal pair metadata
-mf -r SOME_DIR -e 'key.path matches "green"' -p 'echo "p=@RAWARG"' --pname 'key'
+mf -r SOME_DIR -e 'key.p matches "green"' -p 'echo "p=@RAWARG"' --pname 'key'
 # Read paths from stdin
 echo SOME_DIR | mf -r - -v
 # Read metadata

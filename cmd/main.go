@@ -102,11 +102,11 @@ Examples:
 # Exclude by expr
 %[1]s -r SOME_DIR -x 'path matches "green"'
 # Add metadata
-%[1]s -r SOME_DIR -e 'p0.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
+%[1]s -r SOME_DIR -e 'p0.p matches "green"' -p 'echo "{\"p\":\"@ARG\"}"'
 # Add named metadata
-%[1]s -r SOME_DIR -e 'key.path matches "green"' -p 'echo "{\"p\":\"@ARG\"}"' --pname 'key'
+%[1]s -r SOME_DIR -e 'key.p matches "green"' -p 'echo "{\"p\":\"@ARG\"}"' --pname 'key'
 # Add equal pair metadata
-%[1]s -r SOME_DIR -e 'key.path matches "green"' -p 'echo "p=@RAWARG"' --pname 'key'
+%[1]s -r SOME_DIR -e 'key.p matches "green"' -p 'echo "p=@RAWARG"' --pname 'key'
 # Read paths from stdin
 echo SOME_DIR | %[1]s -r - -v
 # Read metadata
