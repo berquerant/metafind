@@ -182,6 +182,21 @@ EOS`)
 				`"script"`,
 			},
 		},
+		{
+			title: "format wins verbose",
+			args: []string{
+				"-r", d,
+				"-f", `name`,
+				"-v",
+			},
+			want: []string{
+				`"green"`,
+				`"red"`,
+				`"green2"`,
+				`"empty"`,
+				`"script"`,
+			},
+		},
 	} {
 		t.Run(tc.title, func(t *testing.T) {
 			got, err := run(tc.stdin, nil, e.cmd, tc.args...)

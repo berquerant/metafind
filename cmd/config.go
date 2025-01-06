@@ -358,9 +358,13 @@ var (
 func (c *Config) Output(w io.Writer, v *meta.Data) {
 	AcceptCount.Incr()
 
-	if c.Verbose {
-		// dump all metadata as json
-		b, err := json.Marshal(v)
+	if e := c.formatExpr; e != nil {
+		x, err := e.Run(v.Unwrap())
+		if err != nil {
+			slog.Warn("Format", logx.Err(err))
+			return
+		}
+		b, err := json.Marshal(x)
 		if err != nil {
 			slog.Warn("Marshal", logx.Err(err))
 			return
@@ -369,13 +373,9 @@ func (c *Config) Output(w io.Writer, v *meta.Data) {
 		return
 	}
 
-	if e := c.formatExpr; e != nil {
-		x, err := e.Run(v.Unwrap())
-		if err != nil {
-			slog.Warn("Format", logx.Err(err))
-			return
-		}
-		b, err := json.Marshal(x)
+	if c.Verbose {
+		// dump all metadata as json
+		b, err := json.Marshal(v)
 		if err != nil {
 			slog.Warn("Marshal", logx.Err(err))
 			return
