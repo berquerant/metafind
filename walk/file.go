@@ -82,7 +82,7 @@ func (w *FileWalker) Walk(root string) iter.Seq[Entry] {
 						return err
 					}
 
-					entry := NewEntry(path, info)
+					entry := NewEntry(path, info, nil)
 					if w.isRejected(entry) {
 						if info.IsDir() {
 							return filepath.SkipDir

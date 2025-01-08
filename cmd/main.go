@@ -77,6 +77,12 @@ Available inputs:
 - name: The name of the file
 - path: The path of the file
 - size: The file size (in bytes)
+- root: The zip file path (zroot)
+- relpath: The relative path of file in zip (zroot)
+- compressed_size: The compressed size of the file (in bytes, zroot)
+- uncompressed_size: The uncompressed size of the file (in bytes, zroot)
+- comment: The user-defined string (zroot)
+- non_utf8: If true, indicates relpath and comment are not encoded in UTF-8 (zroot)
 
 You can add inputs by specifying 'probe'.
 The 'probe' is invoked with the path to the target file (1st argument).
@@ -115,7 +121,8 @@ echo SOME_DIR | %[1]s -r - -v
 ROOT=SOME_DIR EXPR='size==0' %[1]s
 # Format by expr
 %[1]s -r SOME_DIR -f '{n:name,s:size}'
-
+# Search name by regexp in zip
+%[1]s -z SOME.zip -e 'name matches "green"'
 Flags:
 
 `

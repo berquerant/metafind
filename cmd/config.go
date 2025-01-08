@@ -139,6 +139,7 @@ type Config struct {
 	Worker    int      `json:"worker" yaml:"worker" name:"worker" short:"w" default:"8" usage:"Worker num"`
 	Out       string   `json:"out" yaml:"out" name:"out" short:"o" usage:"Output file. - means stdout"`
 	Root      []string `json:"root" yaml:"root" name:"root" short:"r" default:"." usage:"Root directories. - means stdin; separated by ';'"`
+	ZRoot     []string `json:"zroot" yaml:"zroot" name:"zroot" short:"z" usage:"Zip files: separated by ':'"`
 	Shell     []string `json:"shell" yaml:"shell" name:"sh" default:"sh" usage:"Shell command for probe; separated by ';'"`
 	Probe     []string `json:"probe" yaml:"probe" name:"probe" short:"p" usage:"Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by '#'"`
 	ProbeName []string `json:"pname" yaml:"pname" name:"pname" usage:"Probe script name. Change metadata name; separated by ';'"`
@@ -180,7 +181,7 @@ func (Config) unmarshalCallback(f structconfig.StructField, v string, fv func() 
 		xs := strings.Split(v, "#")
 		fv().Set(reflect.ValueOf(xs))
 		return nil
-	case "root", "sh", "index", "pname":
+	case "root", "sh", "index", "pname", "zroot":
 		if v == "" {
 			return nil
 		}
@@ -295,6 +296,11 @@ func (c *Config) NewRootWalker() (*iox.Walker, error) {
 	exclude, err := c.NewExclude()
 	if err != nil && !errors.Is(err, errNotSpecified) {
 		return nil, err
+	}
+
+	if args := c.ZRoot; len(args) > 0 {
+		w := walk.NewZip(exclude)
+		return iox.NewWalker(w, args...), nil
 	}
 
 	args := c.Root

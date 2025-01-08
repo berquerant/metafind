@@ -23,3 +23,12 @@ func (d Data) Get(key string) (any, bool) {
 	v, ok := d.d[key]
 	return v, ok
 }
+
+func (d *Data) Merge(x *Data) {
+	if x == nil {
+		return
+	}
+	for k, v := range x.Unwrap() {
+		d.Set(k, v)
+	}
+}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -203,5 +204,72 @@ func TestWalker(t *testing.T) {
 				assert.Equal(t, tc.want, got)
 			})
 		}
+	})
+
+	t.Run("Zip", func(t *testing.T) {
+		var (
+			zdest = join("zdest.zip")
+			zroot = join("zroot")
+		)
+
+		t.Run("init", func(t *testing.T) {
+			// zroot
+			//  f1
+			//  d1
+			//    f2
+			//  d2
+			//    f3
+			//    d3
+			//      f4
+			mkdir(t, zroot)
+			touch(t, join("zroot", "f1"))
+			mkdir(t, join("zroot", "d1"))
+			touch(t, join("zroot", "d1", "f2"))
+			mkdir(t, join("zroot", "d2"))
+			touch(t, join("zroot", "d2", "f3"))
+			mkdir(t, join("zroot", "d2", "d3"))
+			touch(t, join("zroot", "d2", "d3", "f4"))
+
+			cmd := exec.Command("zip", "-r", zdest, zroot)
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			assert.Nil(t, cmd.Run())
+		})
+
+		t.Run("ZipWalker", func(t *testing.T) {
+			for _, tc := range []struct {
+				title   string
+				exclude expr.Expr
+				want    []string
+			}{
+				{
+					title: "all",
+					want: []string{
+						join("zdest.zip", join("zroot", "f1")),
+						join("zdest.zip", join("zroot", "d1", "f2")),
+						join("zdest.zip", join("zroot", "d2", "f3")),
+						join("zdest.zip", join("zroot", "d2", "d3", "f4")),
+					},
+				},
+			} {
+				t.Run(tc.title, func(t *testing.T) {
+					w := walk.NewZip(tc.exclude)
+
+					r := slices.Collect(w.Walk(zdest))
+					if !assert.Nil(t, w.Err()) {
+						t.Errorf("%#v", w.Err())
+					}
+
+					got := make([]string, len(r))
+					for i, x := range r {
+						got[i] = x.Path()
+					}
+
+					slices.Sort(tc.want)
+					slices.Sort(got)
+					assert.Equal(t, tc.want, got)
+				})
+			}
+		})
 	})
 }

@@ -71,7 +71,7 @@ func (w *ReaderWalker) Walk(_ string) iter.Seq[Entry] {
 						}
 						continue
 					}
-					resultC <- NewEntry(path, info)
+					resultC <- NewEntry(path, info, nil)
 				}
 			}
 
