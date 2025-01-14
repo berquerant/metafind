@@ -4,7 +4,7 @@ go 1.23.3
 
 require (
 	github.com/berquerant/dataclass v0.4.0
-	github.com/berquerant/execx v0.7.0
+	github.com/berquerant/execx v0.8.0
 	github.com/berquerant/structconfig v0.2.2
 	github.com/expr-lang/expr v1.16.9
 	github.com/go-task/task/v3 v3.40.1
