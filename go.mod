@@ -8,7 +8,7 @@ require (
 	github.com/berquerant/structconfig v0.2.2
 	github.com/expr-lang/expr v1.16.9
 	github.com/go-task/task/v3 v3.41.0
-	github.com/spf13/pflag v1.0.5
+	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/vuln v1.1.4
 	gopkg.in/yaml.v3 v3.0.1
