@@ -56,7 +56,7 @@ func TestEndToEnd(t *testing.T) {
 	}
 	var (
 		f1 = newFile("green", "GREEN")
-		f2 = newFile("red", "RED")
+		f2 = newFile("red", `name == 'red'`)
 		f3 = newFile("green2", "GREEN2")
 		f4 = newFile("empty", "")
 		s1 = newFile("script", `cat <<EOS
@@ -72,6 +72,16 @@ EOS`)
 		args  []string
 		want  []string
 	}{
+		{
+			title: "name is red from file",
+			args: []string{
+				"-r", d,
+				"-e", "@" + f2,
+			},
+			want: []string{
+				f2,
+			},
+		},
 		{
 			title: "exclude",
 			args: []string{
