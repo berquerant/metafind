@@ -144,9 +144,9 @@ type Config struct {
 	Probe     []string `json:"probe" yaml:"probe" name:"probe" short:"p" usage:"Probe script. The script should write json to stdout, called by passing the filepath as the 1st argument. Read script from FILE by '@FILE'; separated by '#'"`
 	ProbeName []string `json:"pname" yaml:"pname" name:"pname" usage:"Probe script name. Change metadata name; separated by ';'"`
 	Index     []string `json:"index" yaml:"index" name:"index" short:"i" usage:"Read metadata from the specified files instead of scanning the directory. Read metadata from stdin by -; separated by ';'"`
-	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang to select entries"`
-	Exclude   string   `json:"exclude" yaml:"exclude" name:"exclude" short:"x" usage:"Expression of expr lang to reject entries before probe"`
-	Format    string   `json:"format" yaml:"format" name:"format" short:"f" usage:"Expression of expr lang to format output"`
+	Expr      string   `json:"expr" yaml:"expr" name:"expr" short:"e" usage:"Expression of expr lang to select entries. Read expr from FILE by '@FILE'"`
+	Exclude   string   `json:"exclude" yaml:"exclude" name:"exclude" short:"x" usage:"Expression of expr lang to reject entries before probe. Read expr from FILE by '@FILE'"`
+	Format    string   `json:"format" yaml:"format" name:"format" short:"f" usage:"Expression of expr lang to format output. Read expr from FILE by '@FILE'"`
 
 	formatExpr expr.RawExpr `json:"-" yaml:"-" name:"-"`
 }
