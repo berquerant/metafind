@@ -25,8 +25,8 @@ github.com/berquerant/execx v0.8.0 h1:w2uQyBs2JQCVpm7RmFrR6t3Yi9rBWHR/DWQDQUfBk5
 github.com/berquerant/execx v0.8.0/go.mod h1:bemUZeJh8eEAbztIAyShXv/4w4rX43M/7QSXidtBohA=
 github.com/berquerant/goconfig v0.3.0 h1:ZE06HPp8aoXcdaNBWr3YsnMokfl5BBV4J0OHha5E8E0=
 github.com/berquerant/goconfig v0.3.0/go.mod h1:4fY4lQ98iRSU8Rn4huI7334mlVS46rAHjrAVfonzGzs=
-github.com/berquerant/structconfig v0.2.2 h1:72uwZTLkxUhGguPIC4lbzJawOg/iTWQ1FAQbfrAio2Q=
-github.com/berquerant/structconfig v0.2.2/go.mod h1:7H4otMcU26ggMzmuJTcntcvyX0JSFzGQ2wXpuKBvbM4=
+github.com/berquerant/structconfig v0.3.0 h1:+o5wdvzcEP6chb4NLNcrSSlFPu7IUsLs+EoAkMPgEZk=
+github.com/berquerant/structconfig v0.3.0/go.mod h1:CTZkigJydRMSnEEzpIMnKpeeRVwcS+LshY8Xb1pvskA=
 github.com/bitfield/gotestdox v0.2.2 h1:x6RcPAbBbErKLnapz1QeAlf3ospg8efBsedU93CDsnE=
 github.com/bitfield/gotestdox v0.2.2/go.mod h1:D+gwtS0urjBrzguAkTM2wodsTQYFHdpx8eqRJ3N+9pY=
 github.com/chainguard-dev/git-urls v1.0.2 h1:pSpT7ifrpc5X55n4aTTm7FFUE+ZQHKiqpiwNkJrVcKQ=
