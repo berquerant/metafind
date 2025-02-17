@@ -1,10 +1,9 @@
 module github.com/berquerant/metafind
 
 go 1.23.3
-
 require (
 	github.com/berquerant/dataclass v0.4.0
-	github.com/berquerant/execx v0.8.0
+	github.com/berquerant/execx v0.9.0
 	github.com/berquerant/structconfig v0.2.2
 	github.com/expr-lang/expr v1.16.9
 	github.com/go-task/task/v3 v3.41.0
@@ -65,7 +64,7 @@ require (
 	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67 // indirect
 	golang.org/x/mod v0.22.0 // indirect
 	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/telemetry v0.0.0-20241220003058-cc96b6e0d3d9 // indirect
 	golang.org/x/term v0.28.0 // indirect
