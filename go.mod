@@ -1,11 +1,10 @@
 module github.com/berquerant/metafind
 
 go 1.23.3
-
 require (
 	github.com/berquerant/dataclass v0.4.0
 	github.com/berquerant/execx v0.8.0
-	github.com/berquerant/structconfig v0.2.2
+	github.com/berquerant/structconfig v0.3.0
 	github.com/expr-lang/expr v1.16.9
 	github.com/go-task/task/v3 v3.41.0
 	github.com/spf13/pflag v1.0.6
