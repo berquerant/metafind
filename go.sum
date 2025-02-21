@@ -21,10 +21,8 @@ github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPd
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
 github.com/berquerant/dataclass v0.4.0 h1:POP74hOdKsI7TgaZQwHK5EiYiIRbpWsiExC42Cas1FU=
 github.com/berquerant/dataclass v0.4.0/go.mod h1:f0gBqxMmuOJkimyTZUQuijoIq+XXpgAhqNZE9vQTCP0=
-github.com/berquerant/execx v0.8.0 h1:w2uQyBs2JQCVpm7RmFrR6t3Yi9rBWHR/DWQDQUfBk5U=
-github.com/berquerant/execx v0.8.0/go.mod h1:bemUZeJh8eEAbztIAyShXv/4w4rX43M/7QSXidtBohA=
-github.com/berquerant/goconfig v0.3.0 h1:ZE06HPp8aoXcdaNBWr3YsnMokfl5BBV4J0OHha5E8E0=
-github.com/berquerant/goconfig v0.3.0/go.mod h1:4fY4lQ98iRSU8Rn4huI7334mlVS46rAHjrAVfonzGzs=
+github.com/berquerant/execx v0.9.0 h1:gM/ln2Lfzowdb0t+svsgA2Kh2pQFM/IffuC+Tw8QUZc=
+github.com/berquerant/execx v0.9.0/go.mod h1:tmku8W8ORS7B81ODqB7Meu4LXlukg5bpMJWURg5RlLs=
 github.com/berquerant/structconfig v0.3.0 h1:+o5wdvzcEP6chb4NLNcrSSlFPu7IUsLs+EoAkMPgEZk=
 github.com/berquerant/structconfig v0.3.0/go.mod h1:CTZkigJydRMSnEEzpIMnKpeeRVwcS+LshY8Xb1pvskA=
 github.com/bitfield/gotestdox v0.2.2 h1:x6RcPAbBbErKLnapz1QeAlf3ospg8efBsedU93CDsnE=
@@ -197,8 +195,8 @@ golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4/go.mod h1:RxMgew5VJxzue5/jJ
 golang.org/x/sync v0.1.0/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.3.0/go.mod h1:FU7BRWz2tNW+3quACPkgCx/L+uEAv1htQ0V83Z9Rj+Y=
 golang.org/x/sync v0.6.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
-golang.org/x/sync v0.10.0 h1:3NQrjDixjgGwUOCaF8w2+VYHv0Ve/vGYSbdkTa98gmQ=
-golang.org/x/sync v0.10.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
+golang.org/x/sync v0.11.0 h1:GGz8+XQP4FvTTrjZPzNKTMFtSXH80RAzG+5ghFPgK9w=
+golang.org/x/sync v0.11.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
 golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20191026070338-33540a1f6037/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20201119102817-f84b799fce68/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
