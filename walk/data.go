@@ -10,8 +10,8 @@ import (
 	"github.com/berquerant/metafind/meta"
 )
 
-//go:generate go run github.com/berquerant/dataclass -type Entry -field "Path string|Info fs.FileInfo|Zip ZipEntry" -output entry_dataclass_generated.go
-//go:generate go run github.com/berquerant/dataclass -type ZipEntry -field "Root string|RelPath string|CompressedSize uint64|UncompressedSize uint64|Comment string|NonUTF8 bool" -output zipentry_dataclass_generated.go
+//go:generate go tool dataclass -type Entry -field "Path string|Info fs.FileInfo|Zip ZipEntry" -output entry_dataclass_generated.go
+//go:generate go tool dataclass -type ZipEntry -field "Root string|RelPath string|CompressedSize uint64|UncompressedSize uint64|Comment string|NonUTF8 bool" -output zipentry_dataclass_generated.go
 
 type Walker interface {
 	Walk(root string) iter.Seq[Entry]

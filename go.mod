@@ -3,16 +3,12 @@ module github.com/berquerant/metafind
 go 1.24.0
 
 require (
-	github.com/berquerant/dataclass v0.4.0
 	github.com/berquerant/execx v0.8.0
 	github.com/berquerant/structconfig v0.2.2
 	github.com/expr-lang/expr v1.16.9
-	github.com/go-task/task/v3 v3.41.0
 	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/vuln v1.1.4
 	gopkg.in/yaml.v3 v3.0.1
-	gotest.tools/gotestsum v1.12.0
 )
 
 require (
@@ -22,6 +18,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/ProtonMail/go-crypto v1.1.3 // indirect
 	github.com/alecthomas/chroma/v2 v2.14.0 // indirect
+	github.com/berquerant/dataclass v0.4.0 // indirect
 	github.com/berquerant/goconfig v0.3.0 // indirect
 	github.com/bitfield/gotestdox v0.2.2 // indirect
 	github.com/chainguard-dev/git-urls v1.0.2 // indirect
@@ -39,6 +36,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.6.1 // indirect
 	github.com/go-git/go-git/v5 v5.13.1 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
+	github.com/go-task/task/v3 v3.41.0 // indirect
 	github.com/go-task/template v0.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
@@ -71,6 +69,15 @@ require (
 	golang.org/x/term v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/tools v0.29.0 // indirect
+	golang.org/x/vuln v1.1.4 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
+	gotest.tools/gotestsum v1.12.0 // indirect
 	mvdan.cc/sh/v3 v3.10.0 // indirect
+)
+
+tool (
+	github.com/berquerant/dataclass
+	github.com/go-task/task/v3/cmd/task
+	golang.org/x/vuln/cmd/govulncheck
+	gotest.tools/gotestsum
 )
