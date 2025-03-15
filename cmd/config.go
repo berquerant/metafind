@@ -35,11 +35,7 @@ var (
 )
 
 func NewConfig(fs *pflag.FlagSet) (*Config, error) {
-	var (
-		sc     = NewStructConfig()
-		merger = NewConfigMerger()
-	)
-
+	sc := NewStructConfig()
 	if err := sc.SetFlags(fs); err != nil {
 		return nil, err
 	}
@@ -63,57 +59,44 @@ expr: |
 		return nil, err
 	}
 
-	var (
-		parseFile = func(c Config) (Config, error) {
-			file, _ := fs.GetString(configFlag)
-			if file == "" {
-				return c, nil
-			}
+	config, err := structconfig.NewBuilder(sc, NewConfigMerger()).
+		Add(func(sc *structconfig.StructConfig[Config]) (*Config, error) {
 			var x Config
 			if err := sc.FromDefault(&x); err != nil {
-				return c, nil
+				return nil, err
+			}
+			file, _ := fs.GetString(configFlag)
+			if file == "" {
+				return &x, nil
 			}
 			if err := (&x).parse(file); err != nil {
-				return c, err
+				return nil, err
 			}
-			return merger.Merge(c, x)
-		}
-		parseEnv = func(c Config) (Config, error) {
+			return &x, nil
+		}).
+		Add(func(sc *structconfig.StructConfig[Config]) (*Config, error) {
 			var x Config
 			if err := sc.FromEnv(&x); err != nil {
-				return c, err
+				return nil, err
 			}
-			return merger.Merge(c, x)
-		}
-		parseFlag = func(c Config) (Config, error) {
+			return &x, nil
+		}).
+		Add(func(sc *structconfig.StructConfig[Config]) (*Config, error) {
 			var x Config
 			if err := sc.FromFlags(&x, fs); err != nil {
-				return c, err
+				return nil, err
 			}
-			return merger.Merge(c, x)
-		}
-	)
-
-	var config Config
-	if err := sc.FromDefault(&config); err != nil {
+			return &x, nil
+		}).
+		Build()
+	if err != nil {
 		return nil, err
 	}
-
-	var err error
-	for _, f := range []func(Config) (Config, error){
-		parseFile,
-		parseEnv,
-		parseFlag,
-	} {
-		if config, err = f(config); err != nil {
-			return nil, err
-		}
-	}
-
 	if err := config.Init(); err != nil {
 		return nil, err
 	}
-	return &config, nil
+
+	return config, nil
 }
 
 func (c *Config) parse(v string) error {
