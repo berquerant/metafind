@@ -21,8 +21,8 @@ import (
 	"github.com/berquerant/metafind/walk"
 	"github.com/berquerant/metafind/worker"
 	"github.com/berquerant/structconfig"
+	"github.com/goccy/go-yaml"
 	"github.com/spf13/pflag"
-	"gopkg.in/yaml.v3"
 )
 
 const (
