@@ -5,7 +5,7 @@ go 1.24.0
 require (
 	github.com/berquerant/execx v0.11.0
 	github.com/berquerant/structconfig v0.5.0
-	github.com/expr-lang/expr v1.17.4
+	github.com/expr-lang/expr v1.17.5
 	github.com/goccy/go-yaml v1.18.0
 	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
