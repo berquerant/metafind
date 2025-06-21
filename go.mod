@@ -1,6 +1,6 @@
 module github.com/berquerant/metafind
 
-go 1.24.0
+go 1.24.4
 
 require (
 	github.com/berquerant/execx v0.11.0
