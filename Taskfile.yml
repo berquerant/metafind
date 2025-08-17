@@ -11,7 +11,7 @@ tasks:
       - go tool gotestsum --format pkgname --format-icons hivis -- -cover -race ./...
   build:
     cmds:
-      - go build -trimpath -v -o dist/mf ./cmd/
+      - go build -trimpath -v -o dist/mf ./cmd/mf
   lint:
     deps:
       - vet
