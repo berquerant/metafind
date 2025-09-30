@@ -4,7 +4,7 @@ go 1.25.1
 
 require (
 	github.com/berquerant/execx v0.12.0
-	github.com/berquerant/structconfig v0.6.0
+	github.com/berquerant/structconfig v0.6.1
 	github.com/expr-lang/expr v1.17.6
 	github.com/goccy/go-yaml v1.18.0
 	github.com/spf13/pflag v1.0.10
@@ -61,7 +61,7 @@ require (
 	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394 // indirect
 	golang.org/x/mod v0.24.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/telemetry v0.0.0-20241220003058-cc96b6e0d3d9 // indirect
