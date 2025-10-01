@@ -23,8 +23,8 @@ github.com/berquerant/dataclass v0.4.0 h1:POP74hOdKsI7TgaZQwHK5EiYiIRbpWsiExC42C
 github.com/berquerant/dataclass v0.4.0/go.mod h1:f0gBqxMmuOJkimyTZUQuijoIq+XXpgAhqNZE9vQTCP0=
 github.com/berquerant/execx v0.12.0 h1:NgCQ3DId5BUqOpcG5unQPNjbsDxBxgZOSMB7ich6gWc=
 github.com/berquerant/execx v0.12.0/go.mod h1:YX+n7j7CR0ZfiYe5HwzSLwiROSAubcvPH5omSmgxJ1Q=
-github.com/berquerant/structconfig v0.6.0 h1:1Ca4HAowzOuKQE+1XpqKH7qJhFZ0A1y+NRACv9B6P3I=
-github.com/berquerant/structconfig v0.6.0/go.mod h1:xInbKhkJNbvail+JJqNnKDkf7otHRg7x3OYPijc0K1I=
+github.com/berquerant/structconfig v0.6.1 h1:VNHsi4DeuAwnFjJDEYOuaFg13ND6xXXfAgRvUxnoUHk=
+github.com/berquerant/structconfig v0.6.1/go.mod h1:IWkqnrzs42dFofxaRgTzPnTKHQ4S/mcxHCIThSpUGTg=
 github.com/bitfield/gotestdox v0.2.2 h1:x6RcPAbBbErKLnapz1QeAlf3ospg8efBsedU93CDsnE=
 github.com/bitfield/gotestdox v0.2.2/go.mod h1:D+gwtS0urjBrzguAkTM2wodsTQYFHdpx8eqRJ3N+9pY=
 github.com/chainguard-dev/git-urls v1.0.2 h1:pSpT7ifrpc5X55n4aTTm7FFUE+ZQHKiqpiwNkJrVcKQ=
