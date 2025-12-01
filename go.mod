@@ -4,7 +4,7 @@ go 1.25.1
 
 require (
 	github.com/berquerant/execx v0.12.0
-	github.com/berquerant/structconfig v0.6.1
+	github.com/berquerant/structconfig v0.7.0
 	github.com/expr-lang/expr v1.17.6
 	github.com/goccy/go-yaml v1.18.0
 	github.com/spf13/pflag v1.0.10
@@ -68,7 +68,7 @@ require (
 	golang.org/x/term v0.37.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect
-	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated // indirect
+	golang.org/x/tools/go/expect v0.1.0-deprecated // indirect
 	golang.org/x/vuln v1.1.4 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
