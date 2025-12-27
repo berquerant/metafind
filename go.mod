@@ -3,7 +3,7 @@ module github.com/berquerant/metafind
 go 1.25.1
 
 require (
-	github.com/berquerant/execx v0.12.0
+	github.com/berquerant/execx v0.13.0
 	github.com/berquerant/structconfig v0.7.0
 	github.com/expr-lang/expr v1.17.7
 	github.com/goccy/go-yaml v1.19.0
